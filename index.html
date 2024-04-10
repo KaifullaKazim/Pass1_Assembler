@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assembler Pass 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .container div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin-top: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Assembler Pass 1</h2>
+        <div>
+            <label for="op-table-file">Operational Table File:</label>
+            <input type="file" id="op-table-file" accept=".txt">
+        </div>
+        <div>
+            <label for="input-file">Input File:</label>
+            <input type="file" id="input-file" accept=".txt">
+        </div>
+        <button id="process-btn">Process Files</button>
+    </div>
+
+    <script>
+        document.getElementById('process-btn').addEventListener('click', function() {
+            var opTableFile = document.getElementById('op-table-file').files[0];
+            var inputFile = document.getElementById('input-file').files[0];
+
+            if (!opTableFile || !inputFile) {
+                alert("Please select both operational table file and input file.");
+                return;
+            }
+
+            // Create FormData object and append files
+            var formData = new FormData();
+            formData.append('opFile', opTableFile);
+            formData.append('inputFile', inputFile);
+
+            // Send POST request to backend
+            fetch('/process', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display success message
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred. Please try again."); // Display error message
+            });
+        });
+    </script>
+</body>
+</html>

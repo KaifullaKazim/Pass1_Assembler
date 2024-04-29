@@ -5,5 +5,5 @@ To run the above application on your local system then follow the below steps
 2. npm install express
 3. npm install multer
 
-To run the application go to the directory where the code is present
-in the terminal --------> node app.js
+To run the application go to the directory where the code is present\n
+Type in the terminal --------> node app.js

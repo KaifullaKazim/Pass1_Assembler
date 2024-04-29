@@ -53,6 +53,13 @@
         button:hover {
             background-color: #45a049;
         }
+
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +74,18 @@
             <input type="file" id="input-file" accept=".txt">
         </div>
         <button id="process-btn">Process Files</button>
+
+        <!-- Output display -->
+        <div>
+            <h3>Output:</h3>
+            <pre id="output"></pre>
+        </div>
+
+        <!-- Symbol table display -->
+        <div>
+            <h3>Symbol Table:</h3>
+            <pre id="symbolTable"></pre>
+        </div>
     </div>
 
     <script>
@@ -91,6 +110,8 @@
             })
             .then(response => response.json())
             .then(data => {
+                document.getElementById('output').textContent = data.output;
+                document.getElementById('symbolTable').textContent = data.symbolTable;
                 alert(data.message); // Display success message
             })
             .catch(error => {

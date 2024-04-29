@@ -50,7 +50,7 @@ function pass1Assembler(opFilePath, inputFilePath) {
             }
 
             // Push output line
-            outputLines.push(`${label}\t${opcode}\t${operand}\t\n`);
+            outputLines.push(`\n${label}\t${opcode}\t${operand}\t\n`);
         }
 
         // Calculate code length

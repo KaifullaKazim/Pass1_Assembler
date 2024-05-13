@@ -22,12 +22,15 @@ function pass1Assembler(opFilePath, inputFilePath) {
             if (opcode === "START") {
                 start = parseInt(operand);
                 locctr = start;
-                outputLines.push(`\t${label}\t${opcode}\t${operand}`);
+                outputLines.push(`${label}\t${opcode}\t${operand}\t`);
                 continue;
             }
 
+            // Concatenate locctr with other columns
+            const line = `${locctr}\t${label}\t${opcode}\t${operand}\t`;
+
             // Increment location counter
-            outputLines.push(`${locctr}\t`);
+            outputLines.push(line);
 
             // Add label to symbol table if present
             if (label !== "**") {
@@ -48,14 +51,11 @@ function pass1Assembler(opFilePath, inputFilePath) {
             } else if (opcode === "BYTE") {
                 locctr += 1;
             }
-
-            // Push output line
-            outputLines.push(`\n${label}\t${opcode}\t${operand}\t\n`);
         }
 
         // Calculate code length
         const length = locctr - start;
-        console.log(`The length of the code: ${length-3}`);
+        console.log(`The length of the code: ${length - 3}`);
 
         // Write output lines to file
         fs.writeFileSync("Out.txt", outputLines.join('\n'));
